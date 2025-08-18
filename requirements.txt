@@ -1,0 +1,7 @@
+torch>=2.0.0
+transformers>=4.44.0
+datasets>=2.19.0
+tqdm
+Pillow
+openai>=1.0.0
+python-dotenv
