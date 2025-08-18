@@ -29,19 +29,12 @@ Clone the repo:
 
 ```bash
 
-git clone <repo_url>
-cd vlm_eval
+git clone https://github.com/mdakilraihaniftee/vlm_eval_project
+cd vlm_eval_project
 
 ```
 
 
-Create a Python virtual environment:
-
-```bash
-python -m venv venv
-source venv/bin/activate   # Linux / Mac
-venv\Scripts\activate      # Windows
-```
 
 Install dependencies:
 ```bash
