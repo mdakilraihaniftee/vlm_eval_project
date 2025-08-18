@@ -9,7 +9,7 @@ class GenEvaluator:
 
     def run(self, dataset):
         for idx, item in enumerate(tqdm(dataset, desc="Generating")):
-            prompt = item["question"]  # dataset column is "text"
+            prompt = item["He"]  # dataset column is "text"
 
             image = self.model.generate(prompt)
 
