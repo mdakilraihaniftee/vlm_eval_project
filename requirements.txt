@@ -1,7 +1,9 @@
 torch>=2.0.0
-transformers>=4.44.0
+transformers>=4.50.0 #llama 3.2 
 datasets>=2.19.0
 tqdm
 Pillow
 openai>=1.0.0
 python-dotenv
+accelerate
+diffusers>=0.29.0
