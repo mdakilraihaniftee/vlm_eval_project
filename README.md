@@ -1,4 +1,4 @@
-```bash
+
 
 vlm_eval/
 │
@@ -20,7 +20,7 @@ vlm_eval/
 ├─ requirements.txt              # Required packages
 └─ .env                          # OpenAI API key (for GPT-4o)
 
-```bash
+
 
 Setup
 
@@ -31,7 +31,8 @@ Clone the repo:
 git clone <repo_url>
 cd vlm_eval
 
-```bash
+```
+
 
 Create a Python virtual environment:
 
@@ -39,17 +40,17 @@ Create a Python virtual environment:
 python -m venv venv
 source venv/bin/activate   # Linux / Mac
 venv\Scripts\activate      # Windows
-```bash
+```
 
 Install dependencies:
 ```bash
 pip install -r requirements.txt
-```bash
+```
 
 Create a .env file for OpenAI API (if using GPT-4o):
 ```bash
 OPENAI_API_KEY=your_api_key_here
-```bash
+```
 Usage
 
 Run evaluation with any model:
@@ -57,22 +58,22 @@ Run evaluation with any model:
 LLaVA
 ```bash
 python run_eval.py --model llava --output llava_results.jsonl
-```bash
+```
 
 Qwen 3B
 ```bash
 python run_eval.py --model qwen3b --output qwen3b_results.jsonl
-```bash
+```
 
 Qwen 7B
 ```bash
 python run_eval.py --model qwen7b --output qwen7b_results.jsonl
-```bash
+```
 
 OpenAI GPT-4o-mini
 ```bash
 python run_eval.py --model openai --openai_model_id gpt-4o-mini --output openai_results.jsonl
-```bash
+```
 
 Optional arguments:
 
