@@ -47,7 +47,22 @@ OPENAI_API_KEY=your_api_key_here
 ```
 Usage
 
+Run evaluation with any model for QA:
+
+llama
+```bash
+# Evaluate only 500 samples with Llama
+python run_eval_qa.py --model llama --limit 500 --output llama_results.jsonl
+```
+
+Qwen
+```bash
+# Evaluate full dataset with Qwen
+python run_eval_qa.py --model qwen --limit 0 --output qwen_results.jsonl
+```
+
 Run evaluation with any model:
+VQA:
 
 LLaVA
 ```bash
@@ -67,6 +82,14 @@ python run_eval.py --model qwen7b --output qwen7b_results.jsonl
 OpenAI GPT-4o-mini
 ```bash
 python run_eval.py --model openai --openai_model_id gpt-4o-mini --output openai_results.jsonl
+```
+
+
+Image Generation:
+stable diffusion
+```bash
+# Generate 20 images from dataset prompts
+python run_gen.py --limit 20 --output_dir gen_outputs
 ```
 
 Optional arguments:
