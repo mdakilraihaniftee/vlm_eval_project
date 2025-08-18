@@ -1,5 +1,6 @@
 
 
+```bash
 vlm_eval/
 │
 ├─ dataset/
@@ -19,7 +20,7 @@ vlm_eval/
 ├─ run_eval.py                   # Main Python script to run evaluation
 ├─ requirements.txt              # Required packages
 └─ .env                          # OpenAI API key (for GPT-4o)
-
+```
 
 
 Setup
