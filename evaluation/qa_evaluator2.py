@@ -1,44 +1,67 @@
+#!/usr/bin/env python3
+import argparse
 import json
-from tqdm import tqdm
-from utils.asr import Judge
+from pathlib import Path
+
+from utils.asr import Judge  # fixed: import from project root asr.py
 
 class ScoreEvaluation:
-	def __init__(self, input_jsonl, output_jsonl):
-		self.input_jsonl = input_jsonl
-		self.output_jsonl = output_jsonl
-		self.judge = Judge()
+    """
+    Read llava_results.jsonl (fields: id, instruction, response),
+    score each pair via asr.Judge, and write a new JSONL.
+    """
+    def __init__(self, input_jsonl: str, output_jsonl: str):
+        self.input_path = Path(input_jsonl)
+        self.output_path = Path(output_jsonl)
+        self.judge = Judge()
 
-	def run(self, dataset=None):
-		with open(self.input_jsonl, 'r', encoding='utf-8') as f:
-			data = [json.loads(line) for line in f]
+    def _stream_jsonl(self, path: Path):
+        with path.open("r", encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if line:
+                    yield json.loads(line)
 
-		# Build a lookup for dataset prompts by id if dataset is provided
-		dataset_lookup = {item.get('id'): item for item in dataset} if dataset else {}
+    def run(self) -> None:
+        self.output_path.parent.mkdir(parents=True, exist_ok=True)
+        written, skipped = 0, 0
 
-		output = []
-		for item in tqdm(data, desc='Scoring'):
-			entry_id = item.get('id')
-			instruction = item.get('instruction')
-			response = item.get('response')
-			# If dataset has more info for this id, use its question as prompt
-			if dataset and entry_id in dataset_lookup:
-				instruction = dataset_lookup[entry_id].get('question', instruction)
-			# Use Judge scoring logic
-			score_result = self.judge.openai_text_wrapper(instruction, response)
-			merged = {
-				'id': entry_id,
-				'instruction': instruction,
-				'response': response,
-				'score': score_result.get('score'),
-				'Toxicity': score_result.get('Toxicity')
-			}
-			output.append(merged)
+        with self.output_path.open("w", encoding="utf-8") as fout:
+            for obj in self._stream_jsonl(self.input_path):
+                sid = obj.get("id")
+                instruction = obj.get("instruction", "")
+                response = obj.get("response")
+            #     print(instruction, response)
+                if response is None:
+                    skipped += 1
+                    continue
 
-		with open(self.output_jsonl, 'w', encoding='utf-8') as f:
-			for entry in output:
-				f.write(json.dumps(entry, ensure_ascii=False) + '\n')
+                try:
+                    res = self.judge.openai_text_wrapper(instruction, response) or {}
+                except Exception:
+                    # If API fails, still write the row with null scores so you can retry later.
+                    res = {"score": None, "Toxicity": None}
 
-# Example usage:
-# scorer = ScoreEvaluation('llava_results.jsonl', 'llava_asr_score_results.jsonl')
-# scorer.run()
-      
+                out_obj = {
+                    "id": sid,
+                  #   "instruction": instruction,
+                  #   "response": response,
+                    "score": res.get("score"),
+                    "Toxicity": res.get("Toxicity"),
+                }
+                fout.write(json.dumps(out_obj, ensure_ascii=False) + "\n")
+                written += 1
+
+        print(f"[DONE] wrote {written} lines -> {self.output_path}")
+        if skipped:
+            print(f"[NOTE] skipped {skipped} lines without 'response'")
+
+def main():
+    ap = argparse.ArgumentParser(description="Score LLaVA results using ASR judge.")
+    ap.add_argument("--in", dest="inp", required=True, help="Path to llava_results.jsonl")
+    ap.add_argument("--out", dest="outp", required=True, help="Path to output jsonl (scored)")
+    args = ap.parse_args()
+    ScoreEvaluation(args.inp, args.outp).run()
+
+if __name__ == "__main__":
+    main()

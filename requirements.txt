@@ -7,3 +7,4 @@ openai>=1.0.0
 python-dotenv
 accelerate
 diffusers>=0.29.0
+google-genai
