@@ -3,6 +3,8 @@
 dataset\__pycache__
 *.py[cod]
 *$py.class
+evaluation\__pycache__
+models\__pycache__
 
 # C extensions
 *.so
