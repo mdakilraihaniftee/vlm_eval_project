@@ -1,7 +1,7 @@
 import argparse
 from dataset import load_redteam
 from evaluation import QAEvaluator
-from models import LlamaWrapper, QwenWrapper, GemmaWrapper
+from models import LlamaWrapper, QwenWrapper, GemmaWrapper ,OpenAITextWrapper
 
 
 if __name__ == "__main__":
@@ -19,6 +19,8 @@ if __name__ == "__main__":
         model = QwenWrapper("Qwen/Qwen3-8B")
     elif args.model == "gemma":
         model = GemmaWrapper("google/gemma-3-1b-it")
+    elif args.model == "openai":
+        model = OpenAITextWrapper("gpt-4o-mini")
     else:
         raise ValueError("Unsupported model")
 
