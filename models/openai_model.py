@@ -48,3 +48,22 @@ class OpenAIWrapper:
         )
 
         return response.choices[0].message.content.strip()
+    
+    
+class OpenAITextWrapper:
+    def __init__(self, model_id="gpt-4o-mini"):
+        """
+        Wrapper for OpenAI's GPT-4o (or similar multimodal models).
+        Args:
+            model_id (str): Which OpenAI model to use, e.g., "gpt-4o-mini"
+        """
+        self.model_id = model_id
+    
+    def generate_text(self, prompt: str) -> str:
+        """Text-only mode: text input -> text output."""
+        response = openai.chat.completions.create(
+            model=self.model_id,
+            messages=[{"role": "user", "content": prompt}],
+            max_tokens=200,
+        )
+        return response.choices[0].message.content.strip()
