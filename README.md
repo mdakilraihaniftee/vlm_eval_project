@@ -84,6 +84,15 @@ OpenAI GPT-4o-mini
 python run_eval.py --model openai --openai_model_id gpt-4o-mini --output openai_results.jsonl
 ```
 
+Judge evualtion using open-ai
+```bash
+python -m evaluation.qa_evaluator2 --in llava_results.jsonl --out llava_asr_score_results_openai.jsonl
+```
+
+Judge evualtion using gemini
+```bash
+python -m evaluation.qa_evaluator_gemini --in llava_results.jsonl --out llava_asr_score_results_gemini.jsonl
+```
 
 Image Generation:
 stable diffusion
