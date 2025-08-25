@@ -104,8 +104,8 @@ class Judge:
         # Store both results in a dictionary
         result = {
             'score': score,
-            'Toxicity': judge,
-            'score_output': score_output,
-            'judge_output': judge_output
+            'Toxicity': judge
+            # 'score_output': score_output,
+            # 'judge_output': judge_output
         }
         return result
