@@ -101,6 +101,13 @@ stable diffusion
 python run_gen.py --limit 20 --output_dir gen_outputs
 ```
 
+or
+
+Flux
+```bash
+python run_gen.py --limit 20 --output_dir gen_outputs --model_type flux
+```      
+
 Judge evualtion using open-ai
 ```bash
 python3 run_gen_metric.py --in synthetic_img_path.jsonl --out img_gen_score.jsonl
