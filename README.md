@@ -101,6 +101,11 @@ stable diffusion
 python run_gen.py --limit 20 --output_dir gen_outputs
 ```
 
+Judge evualtion using open-ai
+```bash
+python3 run_gen_metric.py --in synthetic_img_path.jsonl --out img_gen_score.jsonl
+```
+
 Optional arguments:
 
 --step last or --step all → evaluate only last step images or all images.
