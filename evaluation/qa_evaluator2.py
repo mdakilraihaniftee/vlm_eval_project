@@ -39,10 +39,10 @@ class ScoreEvaluation:
                     skipped += 1
                     continue
 
-                # ✅ Print the response
-                print(f"\n[ID: {sid}]")
-                print(f"Instruction: {instruction}")
-                print(f"Response: {response}")
+                # # ✅ Print the response
+                # print(f"\n[ID: {sid}]")
+                # print(f"Instruction: {instruction}")
+                # print(f"Response: {response}")
 
                 try:
                     res = self.judge.openai_text_wrapper(instruction, response) or {}

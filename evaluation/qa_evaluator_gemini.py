@@ -41,10 +41,10 @@ class ScoreEvaluation_Gemini:
                     skipped += 1
                     continue
 
-                # ✅ Print response for inspection
-                print(f"\n[ID: {sid}]")
-                print(f"Instruction: {instruction}")
-                print(f"Response: {response}")
+                # # ✅ Print response for inspection
+                # print(f"\n[ID: {sid}]")
+                # print(f"Instruction: {instruction}")
+                # print(f"Response: {response}")
 
                 try:
                     res = self.judge.gemini_text_wrapper(instruction, response) or {}
