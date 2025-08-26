@@ -86,12 +86,12 @@ python run_eval.py --model openai --openai_model_id gpt-4o-mini --output openai_
 
 Judge evualtion using open-ai
 ```bash
-python -m evaluation.qa_evaluator2 --in llava_results.jsonl --out llava_asr_score_results_openai.jsonl
+python run_eval_qa_metric.py --in llava_results.jsonl --out scored_openai.jsonl
 ```
 
 Judge evualtion using gemini
 ```bash
-python -m evaluation.qa_evaluator_gemini --in llava_results.jsonl --out llava_asr_score_results_gemini.jsonl
+python run_eval_qa_metric.py --in llava_results.jsonl --out scored_gemini.jsonl --backend gemini
 ```
 
 Image Generation:
