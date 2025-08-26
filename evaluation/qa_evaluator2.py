@@ -32,7 +32,9 @@ class ScoreEvaluation:
                 instruction = obj.get("instruction", "")
                 response = obj.get("response")
             #     print(instruction, response)
-                if response is None:
+                print(sid)
+                
+                if response is None or instruction is None:
                     skipped += 1
                     continue
 
