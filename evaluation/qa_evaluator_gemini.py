@@ -32,8 +32,7 @@ class ScoreEvaluation_Gemini:
                 instruction = obj.get("instruction", "")
                 response = obj.get("response")
             #     print(instruction, response)
-                print(sid)
-                if response is None or instruction is None:
+                if response is None:
                     skipped += 1
                     continue
 
