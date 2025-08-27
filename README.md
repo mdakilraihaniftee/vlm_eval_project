@@ -98,14 +98,14 @@ Image Generation:
 stable diffusion
 ```bash
 # Generate 20 images from dataset prompts
-python run_gen.py --limit 20 --output_dir gen_outputs
+python run_gen.py --dataset_name "Maxx0/sexting-nsfw-adultconten" --prompt_column "He" --limit 10 --model_type sd
 ```
 
 or
 
 Flux
 ```bash
-python run_gen.py --limit 20 --output_dir gen_outputs --model_type flux
+python run_gen.py --dataset_name "AIML-TUDA/i2p" --prompt_column "prompt" --limit 10 --model_type flux
 ```      
 
 Judge evualtion using open-ai
