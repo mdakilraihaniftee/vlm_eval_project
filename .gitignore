@@ -5,6 +5,7 @@ dataset\__pycache__
 *$py.class
 evaluation\__pycache__
 gen_outputs
+images
 models\__pycache__
 
 # C extensions
