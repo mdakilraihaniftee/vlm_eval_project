@@ -1,13 +1,16 @@
 import os
+import time
 import base64
 from io import BytesIO
 from PIL import Image
 from dotenv import load_dotenv
 import openai
+from openai import OpenAI
 
 # Load API key from .env
 load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
+
 
 class OpenAIWrapper:
     def __init__(self, model_id="gpt-4o-mini"):
@@ -44,7 +47,7 @@ class OpenAIWrapper:
                     ],
                 }
             ],
-            max_tokens=150,
+            # max_tokens=150,
         )
 
         return response.choices[0].message.content.strip()
@@ -64,6 +67,42 @@ class OpenAITextWrapper:
         response = openai.chat.completions.create(
             model=self.model_id,
             messages=[{"role": "user", "content": prompt}],
-            max_tokens=200,
+            tool_choice='auto'
         )
         return response.choices[0].message.content.strip()
+
+
+class OpenAIResponsesWrapper:
+    def __init__(self, model_id="gpt-5-mini"):
+        """Wrapper for OpenAI's Responses API with code interpreter support."""
+        self.client = OpenAI()  # Assumes OPENAI_API_KEY is set
+        self.model_id = model_id
+    
+    def generate_with_code_execution(self, prompt: str, poll_interval=1):
+        """Send a prompt with code interpreter enabled and return text output."""
+        response = self.client.responses.create(
+            model=self.model_id,
+            input=prompt,
+            tools=[{
+                "type": "code_interpreter",
+                "container": {"type": "auto"}
+            }],
+        )
+
+        # Poll until finished
+        while response.status not in ("completed", "failed"):
+            time.sleep(poll_interval)
+            response = self.client.responses.retrieve(response.id)
+
+        if response.status != "completed":
+            raise RuntimeError(f"Run failed with status: {response.status}")
+
+        # Extract text outputs
+        outputs = []
+        for item in response.output or []:
+            if item.type == "message":
+                for c in item.content:
+                    if c.type == "output_text":
+                        outputs.append(c.text)
+
+        return "\n".join(outputs) if outputs else "No text output found."

@@ -9,9 +9,10 @@ class Evaluator_Manual:
         self.output_path = output_path
 
     def run(self, images_folder, instruction):
-        # Clear the results file at the start
-        with open(self.output_path, "w") as f:
-            pass  
+        # Only clear if file doesn't exist or you want to start fresh
+        if not os.path.exists(self.output_path):
+            with open(self.output_path, "w") as f:
+                pass  # Create empty file
 
         # Collect all image files
         image_files = [f for f in os.listdir(images_folder) if f.lower().endswith((".png", ".jpg", ".jpeg"))]
