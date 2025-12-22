@@ -1,5 +1,7 @@
 We may evaluate datasets from:
-1. paper: https://arxiv.org/pdf/2403.09792 [Huggingface]{https://huggingface.co/datasets/Monosail/HADES}
+1. paper: https://arxiv.org/pdf/2403.09792 Huggingface: https://huggingface.co/datasets/Monosail/HADES
+2. Paper: https://arxiv.org/pdf/2404.03027 Huggingface: https://huggingface.co/datasets/JailbreakV-28K/JailBreakV-28k
+
 all supported
 
 ```bash
