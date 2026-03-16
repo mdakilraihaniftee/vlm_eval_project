@@ -49,6 +49,11 @@ Create a .env file for OpenAI API (if using GPT-4o):
 ```bash
 OPENAI_API_KEY=your_api_key_here
 ```
+Huggingface login
+```bash
+huggingface-cli login
+```
+
 Usage
 
 Run evaluation with any model for QA:
