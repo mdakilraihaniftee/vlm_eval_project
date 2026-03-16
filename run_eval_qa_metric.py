@@ -2,7 +2,7 @@
 import argparse
 import json
 from pathlib import Path
-from evaluation import ScoreEvaluation_Gemini, ScoreEvaluation
+from evaluation import ScoreEvaluation_Gemini, ScoreEvaluation, ScoreEvaluation_Gemma
 from utils.asr import Judge  # import Judge from project root asr.py
 
 
@@ -12,7 +12,7 @@ def main():
     ap.add_argument("--out", dest="outp", required=True, help="Path to output jsonl (scored)")
     ap.add_argument(
         "--backend",
-        choices=["openai", "gemini"],
+        choices=["openai", "gemini", "gemma"],
         default="openai",
         help="Which evaluation backend to use (default: openai)",
     )
@@ -22,8 +22,10 @@ def main():
 
     if args.backend == "openai":
         evaluator = ScoreEvaluation(args.inp, args.outp, judge)
-    else:  # gemini
+    elif args.backend == "gemini":
         evaluator = ScoreEvaluation_Gemini(args.inp, args.outp)
+    else:  # gemma
+        evaluator = ScoreEvaluation_Gemma(args.inp, args.outp)
 
     evaluator.run()
 

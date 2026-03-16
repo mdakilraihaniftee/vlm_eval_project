@@ -59,7 +59,7 @@ class OpenAITextWrapper:
         """
         self.model_id = model_id
     
-    def generate_text(self, prompt: str) -> str:
+    def generate(self, prompt: str) -> str:
         """Text-only mode: text input -> text output."""
         response = openai.chat.completions.create(
             model=self.model_id,

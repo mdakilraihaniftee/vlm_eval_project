@@ -7,4 +7,7 @@ def load_redteam(limit=None, split = None):
     """
     RedTeam_2K = load_dataset("JailbreakV-28K/JailBreakV-28k", 'RedTeam_2K')["RedTeam_2K"]
 
+    if limit:
+        RedTeam_2K = RedTeam_2K.select(range(min(limit, len(RedTeam_2K))))
+
     return RedTeam_2K

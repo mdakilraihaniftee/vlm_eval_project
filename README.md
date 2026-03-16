@@ -98,6 +98,17 @@ Judge evualtion using gemini
 python run_eval_qa_metric.py --in llava_results.jsonl --out scored_gemini.jsonl --backend gemini
 ```
 
+Judge evualtion using gemma (Local)
+```bash
+python run_eval_qa_metric.py --in llava_results.jsonl --out scored_gemma.jsonl --backend gemma
+```
+
+Unified Evaluation Pipeline (Gen + Judge serially)
+```bash
+# Evaluate and judge with custom models and limits
+python run_pipeline.py --model gemma --judge openai --limit 100 --output results_serially.jsonl
+```
+
 Image Generation:
 stable diffusion
 ```bash
